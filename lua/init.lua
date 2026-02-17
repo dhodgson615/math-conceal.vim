@@ -10,7 +10,6 @@ function M.setup()
         'syntax keyword pythonOperator and conceal cchar=∧',
         'syntax keyword pythonOperator or conceal cchar=∨',
         'syntax keyword pythonOperator not conceal cchar=¬',
-        'syntax keyword pythonRepeat for conceal cchar=∀',
         'syntax keyword pythonOperator in conceal cchar=∈',
         'syntax match pythonOperator "->" conceal cchar=→',
         'syntax match pythonOperator "==" conceal cchar=≡',
