@@ -5,11 +5,8 @@ export def Setup()
     setlocal concealcursor=nv
 
     # 1. Matches (Multi-character or Multi-word)
-    # Priority: Match "not in" before individual "not" or "in" keywords
     syntax match mathNotIn "\<not in\>" conceal cchar=∉
     syntax match mathIsNot "\<is not\>" conceal cchar=≢
-    
-    # Empty set for empty dictionaries/sets
     syntax match mathEmptySet "{}" conceal cchar=∅
 
     syntax match pythonOperator "->" conceal cchar=→
@@ -18,7 +15,7 @@ export def Setup()
     syntax match pythonOperator "<=" conceal cchar=≤
     syntax match pythonOperator ">=" conceal cchar=≥
     
-    # Logical/Bitwise shifts as Much Less/Greater Than
+    # Much Less/Greater Than
     syntax match pythonOperator "<<" conceal cchar=≪
     syntax match pythonOperator ">>" conceal cchar=≫
 
@@ -34,16 +31,25 @@ export def Setup()
     syntax match pythonOperator "\v\*\* ?8($|[^\d])@=" conceal cchar=⁸
     syntax match pythonOperator "\v\*\* ?9($|[^\d])@=" conceal cchar=⁹
     
-    # Fallback for multi-digit powers
     syntax match pythonOperator "\*\*" conceal cchar=^
 
-    # 3. Constants and Prefixes
+    # 3. NumPy / SciPy Specific Math (Handled with Word Boundaries)
+    # .T or transpose() -> ᵀ
+    syntax match pythonBuiltin "\v\.T|transpose\(\)@=" conceal cchar=ᵀ
+    # dot() -> ⋅
+    syntax match pythonBuiltin "\v<(np\.|numpy\.)?dot>" conceal cchar=⋅
+    # gradient() or nabla -> ∇
+    syntax match pythonBuiltin "\v<(np\.|numpy\.)?gradient>" conceal cchar=∇
+    # prod() -> ∏
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?prod(uct)?>" conceal cchar=∏
+
+    # 4. Constants and Prefixes
     syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?pi>" conceal cchar=π
     syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?inf>" conceal cchar=∞
     syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?sqrt>" conceal cchar=√
     syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?exp>" conceal cchar=ℯ
 
-    # 4. Keywords
+    # 5. Keywords
     syntax keyword pythonLambda lambda conceal cchar=λ
     syntax keyword pythonOperator and conceal cchar=∧
     syntax keyword pythonOperator or conceal cchar=∨
@@ -51,7 +57,7 @@ export def Setup()
     syntax keyword pythonBuiltin all conceal cchar=∀
     syntax keyword pythonBuiltin any conceal cchar=∃
 
-    # Types
+    # Types (Sets)
     syntax keyword pythonBuiltin int conceal cchar=ℤ
     syntax keyword pythonBuiltin float conceal cchar=ℝ
     syntax keyword pythonBuiltin bool conceal cchar=𝔹
@@ -65,8 +71,8 @@ export def Setup()
     syntax keyword pythonOperator is conceal cchar=≐
     syntax keyword pythonBuiltin sum conceal cchar=Σ
     syntax keyword pythonBuiltin round conceal cchar=≈
-    
-    # 5. Highlight Linking
+
+    # 6. Highlight Linking
     hi! link pythonLambda Keyword
     hi! link pythonBuiltin Function
     hi! link pythonOperator Operator
