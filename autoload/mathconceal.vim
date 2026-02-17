@@ -5,9 +5,9 @@ export def Setup()
     setlocal concealcursor=nv
 
     # 1. Matches (Multi-character or Multi-word)
-    # This ensures "not in" becomes one symbol ∉ instead of ¬ ∈
-    syntax match mathNotIn "not in" conceal cchar=∉
-    syntax match mathIsNot "is not" conceal cchar=≢
+    # Priority: Match "not in" before individual "not" or "in" keywords
+    syntax match mathNotIn "\<not in\>" conceal cchar=∉
+    syntax match mathIsNot "\<is not\>" conceal cchar=≢
     
     # Empty set for empty dictionaries/sets
     syntax match mathEmptySet "{}" conceal cchar=∅
@@ -22,7 +22,7 @@ export def Setup()
     syntax match pythonOperator "<<" conceal cchar=≪
     syntax match pythonOperator ">>" conceal cchar=≫
 
-    # 2. Superscripts (Matches '**n' or '** n' ONLY for single digits)
+    # 2. Superscripts (Single digits only)
     syntax match pythonOperator "\v\*\* ?0($|[^\d])@=" conceal cchar=⁰
     syntax match pythonOperator "\v\*\* ?1($|[^\d])@=" conceal cchar=¹
     syntax match pythonOperator "\v\*\* ?2($|[^\d])@=" conceal cchar=²
@@ -38,10 +38,10 @@ export def Setup()
     syntax match pythonOperator "\*\*" conceal cchar=^
 
     # 3. Constants and Prefixes
-    syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?pi" conceal cchar=π
-    syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?inf" conceal cchar=∞
-    syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?sqrt" conceal cchar=√
-    syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?exp" conceal cchar=ℯ
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?pi>" conceal cchar=π
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?inf>" conceal cchar=∞
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?sqrt>" conceal cchar=√
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?exp>" conceal cchar=ℯ
 
     # 4. Keywords
     syntax keyword pythonLambda lambda conceal cchar=λ
