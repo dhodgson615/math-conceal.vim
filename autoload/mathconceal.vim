@@ -9,6 +9,7 @@ export def Setup()
     syntax keyword pythonBuiltin sum conceal cchar=Σ
     syntax keyword pythonOperator and conceal cchar=∧
     syntax keyword pythonOperator or conceal cchar=∨
+    syntax match mathNotIn "not in" conceal cchar=∉
     syntax keyword pythonOperator not conceal cchar=¬
     syntax keyword pythonOperator in conceal cchar=∈
 
