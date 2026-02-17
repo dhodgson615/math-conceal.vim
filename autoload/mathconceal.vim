@@ -4,7 +4,7 @@ export def Setup()
     setlocal conceallevel=2
     setlocal concealcursor=nv
 
-    # Matches
+    # 1. Matches (Multi-character or Multi-word)
     syntax match mathNotIn "not in" conceal cchar=∉
     syntax match mathIsNot "is not" conceal cchar=≢
     syntax match pythonOperator "->" conceal cchar=→
@@ -12,16 +12,30 @@ export def Setup()
     syntax match pythonOperator "!=" conceal cchar=≠
     syntax match pythonOperator "<=" conceal cchar=≤
     syntax match pythonOperator ">=" conceal cchar=≥
+
+    # 2. Superscripts (Handles '**n' and '** n' for single digits)
+    syntax match pythonOperator "\v\*\* ?" . "0" conceal cchar=⁰
+    syntax match pythonOperator "\v\*\* ?" . "1" conceal cchar=¹
+    syntax match pythonOperator "\v\*\* ?" . "2" conceal cchar=²
+    syntax match pythonOperator "\v\*\* ?" . "3" conceal cchar=³
+    syntax match pythonOperator "\v\*\* ?" . "4" conceal cchar=⁴
+    syntax match pythonOperator "\v\*\* ?" . "5" conceal cchar=⁵
+    syntax match pythonOperator "\v\*\* ?" . "6" conceal cchar=⁶
+    syntax match pythonOperator "\v\*\* ?" . "7" conceal cchar=⁷
+    syntax match pythonOperator "\v\*\* ?" . "8" conceal cchar=⁸
+    syntax match pythonOperator "\v\*\* ?" . "9" conceal cchar=⁹
+    
+    # Fallback for multi-digit powers (just conceals the **)
     syntax match pythonOperator "\*\*" conceal cchar=^
 
-    # Constants with common prefixes (math.pi, np.pi, etc.)
+    # 3. Constants with common prefixes (math.pi, np.pi, etc.)
     syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?pi" conceal cchar=π
     syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?inf" conceal cchar=∞
     syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?sqrt" conceal cchar=√
     syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?exp" conceal cchar=ℯ
     syntax match pythonBuiltin "\v(math\.|np\.|numpy\.)?nabla" conceal cchar=∇
 
-    # Keywords
+    # 4. Keywords
     syntax keyword pythonLambda lambda conceal cchar=λ
     syntax keyword pythonOperator and conceal cchar=∧
     syntax keyword pythonOperator or conceal cchar=∨
@@ -49,7 +63,7 @@ export def Setup()
     syntax keyword pythonBuiltin delta conceal cchar=Δ
     syntax keyword pythonBuiltin diff conceal cchar=∂
 
-    # Highlight Linking
+    # 5. Highlight Linking
     hi! link pythonLambda Keyword
     hi! link pythonBuiltin Function
     hi! link pythonOperator Operator
