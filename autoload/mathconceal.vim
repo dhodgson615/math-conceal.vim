@@ -12,18 +12,22 @@ export def Setup()
     syntax match pythonOperator "!=" conceal cchar=≠
     syntax match pythonOperator "<=" conceal cchar=≤
     syntax match pythonOperator ">=" conceal cchar=≥
+    
+    # Logical/Bitwise shifts as Much Less/Greater Than
+    syntax match pythonOperator "<<" conceal cchar=≪
+    syntax match pythonOperator ">>" conceal cchar=≫
 
-    # 2. Superscripts (Handles '**n' and '** n' for single digits)
-    syntax match pythonOperator "\v\*\* ?" . "0" conceal cchar=⁰
-    syntax match pythonOperator "\v\*\* ?" . "1" conceal cchar=¹
-    syntax match pythonOperator "\v\*\* ?" . "2" conceal cchar=²
-    syntax match pythonOperator "\v\*\* ?" . "3" conceal cchar=³
-    syntax match pythonOperator "\v\*\* ?" . "4" conceal cchar=⁴
-    syntax match pythonOperator "\v\*\* ?" . "5" conceal cchar=⁵
-    syntax match pythonOperator "\v\*\* ?" . "6" conceal cchar=⁶
-    syntax match pythonOperator "\v\*\* ?" . "7" conceal cchar=⁷
-    syntax match pythonOperator "\v\*\* ?" . "8" conceal cchar=⁸
-    syntax match pythonOperator "\v\*\* ?" . "9" conceal cchar=⁹
+    # 2. Superscripts (Matches '**n' or '** n' ONLY if followed by a non-digit or end of line)
+    syntax match pythonOperator "\v\*\* ?0($|[^\d])@=" conceal cchar=⁰
+    syntax match pythonOperator "\v\*\* ?1($|[^\d])@=" conceal cchar=¹
+    syntax match pythonOperator "\v\*\* ?2($|[^\d])@=" conceal cchar=²
+    syntax match pythonOperator "\v\*\* ?3($|[^\d])@=" conceal cchar=³
+    syntax match pythonOperator "\v\*\* ?4($|[^\d])@=" conceal cchar=⁴
+    syntax match pythonOperator "\v\*\* ?5($|[^\d])@=" conceal cchar=⁵
+    syntax match pythonOperator "\v\*\* ?6($|[^\d])@=" conceal cchar=⁶
+    syntax match pythonOperator "\v\*\* ?7($|[^\d])@=" conceal cchar=⁷
+    syntax match pythonOperator "\v\*\* ?8($|[^\d])@=" conceal cchar=⁸
+    syntax match pythonOperator "\v\*\* ?9($|[^\d])@=" conceal cchar=⁹
     
     # Fallback for multi-digit powers (just conceals the **)
     syntax match pythonOperator "\*\*" conceal cchar=^
