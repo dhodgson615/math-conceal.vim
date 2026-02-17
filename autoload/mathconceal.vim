@@ -5,7 +5,7 @@ export def Setup()
     setlocal concealcursor=nv
 
     # 1. Matches
-    syntax match mathNotIn "not in" conceal cchar=∉
+    syntax match mathNotIn "not in" conceal cchar=∉ # this doesn't work, it just renders "¬ ∈"
     syntax match pythonOperator "->" conceal cchar=→
     syntax match pythonOperator "==" conceal cchar=≡
     syntax match pythonOperator "!=" conceal cchar=≠
