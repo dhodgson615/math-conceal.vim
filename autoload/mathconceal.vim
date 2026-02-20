@@ -79,4 +79,41 @@ export def Setup()
     hi! link mathNotIn Operator
     hi! link mathIsNot Operator
     hi! link mathEmptySet Constant
+
+    # Experimental
+
+    # Conceal 'list[' -> '['
+    syntax match pyTypeLib "list\[" conceal cchar=[
+
+    # Conceal 'tuple[' -> '('
+    syntax match pyTypeLib "tuple\[" conceal cchar=(
+
+    # Conceal 'set[' -> '{'
+    syntax match pyTypeLib "set\[" conceal cchar={
+
+    # Conceal 'dict[' -> '{'
+    syntax match pyTypeLib "dict\[" conceal cchar={
+
+    # Match ']' only if preceded by 'tuple[' and any chars (non-greedy)
+    syntax match pyTypeTupleEnd "\vtuple\[.{-}\zs\]" conceal cchar=)
+
+    # Match ']' only if preceded by 'list['
+    syntax match pyTypeListEnd "\vlist\[.{-}\zs\]" conceal cchar=]
+
+    # Match ']' only if preceded by 'set[' or 'dict['
+    syntax match pyTypeSetEnd "\v(set|dict)\[.{-}\zs\]" conceal cchar=}
+
+    # Conceal ',' as ':' only inside a dict[...] definition
+    syntax match pyTypeDictColon "\vdict\[.{-}\zs,\ze.{-}\]" conceal cchar=:
+
+    # Conceal ',' as ' ' (space) inside tuples or lists
+    syntax match pyTypeComma "\v(tuple|list)\[.{-}\zs,\ze.{-}\]" conceal cchar= 
+
+    hi! link pyTypeLib Type
+    hi! link pyTypeListEnd Type
+    hi! link pyTypeTupleEnd Type
+    hi! link pyTypeSetEnd Type
+    hi! link pyTypeDictColon Operator
+    hi! link pyTypeComma Operator
+
 enddef
