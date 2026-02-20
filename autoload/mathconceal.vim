@@ -63,8 +63,8 @@ export def Setup()
     syntax keyword pythonBuiltin bool conceal cchar=𝔹
     syntax keyword pythonBuiltin complex conceal cchar=ℂ
     syntax keyword pythonBuiltin set conceal cchar=𝕊
-    syntax keyword pythonBuiltin list conceal cchar=𝑳
-    syntax keyword pythonBuiltin dict conceal cchar=𝑫
+    # syntax keyword pythonBuiltin list conceal cchar=𝑳
+    # syntax keyword pythonBuiltin dict conceal cchar=𝑫
 
     # Logic & Sets
     syntax keyword pythonOperator in conceal cchar=∈
