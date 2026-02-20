@@ -14,7 +14,7 @@ export def Setup()
     syntax match pythonOperator "!=" conceal cchar=≠
     syntax match pythonOperator "<=" conceal cchar=≤
     syntax match pythonOperator ">=" conceal cchar=≥
-    
+
     # Much Less/Greater Than
     syntax match pythonOperator "<<" conceal cchar=≪
     syntax match pythonOperator ">>" conceal cchar=≫
@@ -30,7 +30,7 @@ export def Setup()
     syntax match pythonOperator "\v\*\* ?7($|[^\d])@=" conceal cchar=⁷
     syntax match pythonOperator "\v\*\* ?8($|[^\d])@=" conceal cchar=⁸
     syntax match pythonOperator "\v\*\* ?9($|[^\d])@=" conceal cchar=⁹
-    
+
     syntax match pythonOperator "\*\*" conceal cchar=^
 
     # 3. NumPy / SciPy Specific Math (Handled with Word Boundaries)
