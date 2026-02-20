@@ -80,4 +80,20 @@ export def Setup()
     hi! link mathIsNot Operator
     hi! link mathEmptySet Constant
 
+    # 7. Specific Tuple Mappings
+    # Define the "container" match for the whole phrase
+    syntax match mathTupleIntSq "\vtuple\[int, ?int\]" contains=mathTupIntBase,mathTupIntExp
+
+    # Define the components that only exist INSIDE that container
+    syntax match mathTupIntBase "\vtuple\[int, ?int" contained conceal cchar=ℤ
+    syntax match mathTupIntExp "\]" contained conceal cchar=²
+
+    # Highlighting
+    hi! link mathTupIntBase pythonBuiltin
+    hi! link mathTupIntExp pythonBuiltin
+
+
+
+
+
 enddef
