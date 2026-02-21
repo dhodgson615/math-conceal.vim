@@ -35,12 +35,12 @@ export class PythonConcealer
                             'bool':    ['pythonBuiltin',  '𝔹'],
                             'complex': ['pythonBuiltin',  'ℂ'],
                             'set':     ['pythonBuiltin',  '𝕊'],
-                            # 'list':    ['pythonListType', '𝕃'],
-                            # 'List':    ['pythonListType', '𝕃'],
-                            # 'tuple':   ['pythonListType', '𝕋'],
-                            # 'Tuple':   ['pythonListType', '𝕋'],
-                            # 'dict':    ['pythonBuiltin',  '𝔻'],
-                            # 'Dict':    ['pythonBuiltin',  '𝔻'],
+                            'list':    ['pythonListType', '𝕃'],
+                            'List':    ['pythonListType', '𝕃'],
+                            'tuple':   ['pythonListType', '𝕋'],
+                            'Tuple':   ['pythonListType', '𝕋'],
+                            'dict':    ['pythonBuiltin',  '𝔻'],
+                            'Dict':    ['pythonBuiltin',  '𝔻'],
                             'True':    ['pythonBuiltin',  '⊤'],
                             'False':   ['pythonBuiltin',  '⊥']}
 
@@ -58,7 +58,8 @@ export class PythonConcealer
                           '<=': '≤',
                           '>=': '≥',
                           '<<': '≪',
-                          '>>': '≫'}
+                          '>>': '≫',
+                          '*':  '×'}
 
         for [pattern, char] in items(simple_ops)
             execute $'syntax match pythonOperator "{pattern}" conceal cchar={char}'
