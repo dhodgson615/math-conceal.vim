@@ -34,7 +34,12 @@ export class PythonConcealer
                             'float':   ['pythonBuiltin',  'ℝ'],
                             'bool':    ['pythonBuiltin',  '𝔹'],
                             'complex': ['pythonBuiltin',  'ℂ'],
-                            'set':     ['pythonBuiltin',  '𝕊']}
+                            'set':     ['pythonBuiltin',  '𝕊'],
+                            # 'list':    ['pythonListType', '𝕃'],
+                            # 'tuple':   ['pythonListType', '𝕋'],
+                            # 'dict':    ['pythonBuiltin',  '𝔻'],
+                            'True':    ['pythonBuiltin',  '⊤'],
+                            'False':   ['pythonBuiltin',  '⊥']}
 
         for [kw, data] in items(keyword_maps)
             execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
