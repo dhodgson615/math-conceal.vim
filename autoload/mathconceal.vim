@@ -24,21 +24,21 @@ export class PythonConcealer
     def SetupSyntax()
         # --- 1. Keywords (Defined first) ---
         var keyword_maps = {
-            'lambda': ['pythonLambda',   'λ'],
-            'and':    ['pythonOperator', '∧'],
-            'or':     ['pythonOperator', '∨'],
-            'not':    ['pythonOperator', '¬'],
-            'in':     ['pythonOperator', '∈'],
-            'is':     ['pythonOperator', '≐'],
-            'all':    ['pythonBuiltin',  '∀'],
-            'any':    ['pythonBuiltin',  '∃'],
-            'sum':    ['pythonBuiltin',  'Σ'],
-            'round':  ['pythonBuiltin',  '≈'],
-            'int':    ['pythonBuiltin',  'ℤ'],
-            'float':  ['pythonBuiltin',  'ℝ'],
-            'bool':   ['pythonBuiltin',  '𝔹'],
-            'complex':['pythonBuiltin',  'ℂ'],
-            'set':    ['pythonBuiltin',  '𝕊']
+            'lambda':  ['pythonLambda',   'λ'],
+            'and':     ['pythonOperator', '∧'],
+            'or':      ['pythonOperator', '∨'],
+            'not':     ['pythonOperator', '¬'],
+            'in':      ['pythonOperator', '∈'],
+            'is':      ['pythonOperator', '≐'],
+            'all':     ['pythonBuiltin',  '∀'],
+            'any':     ['pythonBuiltin',  '∃'],
+            'sum':     ['pythonBuiltin',  'Σ'],
+            'round':   ['pythonBuiltin',  '≈'],
+            'int':     ['pythonBuiltin',  'ℤ'],
+            'float':   ['pythonBuiltin',  'ℝ'],
+            'bool':    ['pythonBuiltin',  '𝔹'],
+            'complex': ['pythonBuiltin',  'ℂ'],
+            'set':     ['pythonBuiltin',  '𝕊']
         }
         for [kw, data] in items(keyword_maps)
             execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
