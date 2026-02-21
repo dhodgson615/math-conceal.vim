@@ -46,14 +46,14 @@ export class PythonConcealer
         syntax match pythonOperator "\*\*" conceal cchar=^
 
         # Built-ins & Libraries
-        syntax match pythonBuiltin "\v\.T|transpose\(\)@="                 conceal cchar=ᵀ
-        syntax match pythonBuiltin "\v<(np\.|numpy\.)?dot>"                conceal cchar=⋅
-        syntax match pythonBuiltin "\v<(np\.|numpy\.)?gradient>"           conceal cchar=∇
-        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?prod(uct)?>"  conceal cchar=∏
-        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?pi>"          conceal cchar=π
-        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?inf>"         conceal cchar=∞
-        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?sqrt>"        conceal cchar=√
-        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?exp>"         conceal cchar=ℯ
+        syntax match pythonBuiltin "\v\.T|transpose\(\)@="                conceal cchar=ᵀ
+        syntax match pythonBuiltin "\v<(np\.|numpy\.)?dot>"               conceal cchar=⋅
+        syntax match pythonBuiltin "\v<(np\.|numpy\.)?gradient>"          conceal cchar=∇
+        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?prod(uct)?>" conceal cchar=∏
+        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?pi>"         conceal cchar=π
+        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?inf>"        conceal cchar=∞
+        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?sqrt>"       conceal cchar=√
+        syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?exp>"        conceal cchar=ℯ
 
         # Keywords & Logic
         var keyword_maps = {
