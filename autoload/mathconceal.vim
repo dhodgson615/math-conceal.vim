@@ -93,6 +93,7 @@ export class PythonConcealer
                 execute $'hi! link {group_name} pythonBuiltin'
                 execute $'hi! link {base_group} pythonBuiltin'
             endfor
+
             execute $'hi! link mathTupExp{i} pythonBuiltin'
         endfor
     enddef
