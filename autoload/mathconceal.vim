@@ -36,8 +36,11 @@ export class PythonConcealer
                             'complex': ['pythonBuiltin',  'ℂ'],
                             'set':     ['pythonBuiltin',  '𝕊'],
                             # 'list':    ['pythonListType', '𝕃'],
+                            # 'List':    ['pythonListType', '𝕃'],
                             # 'tuple':   ['pythonListType', '𝕋'],
+                            # 'Tuple':   ['pythonListType', '𝕋'],
                             # 'dict':    ['pythonBuiltin',  '𝔻'],
+                            # 'Dict':    ['pythonBuiltin',  '𝔻'],
                             'True':    ['pythonBuiltin',  '⊤'],
                             'False':   ['pythonBuiltin',  '⊥']}
 
@@ -127,9 +130,6 @@ enddef
 
 autocmd VimResized * if &ft == 'python' | python_concealer.SyncSyntax() | endif
 
-
-
-
 export class CConcealer
     public var conceallevel: number = 2
     public var concealcursor: string = 'nv'
@@ -145,48 +145,38 @@ export class CConcealer
     enddef
 
     def SetupSyntax()
-        var keyword_maps = {
-            'void':      ['cType',       '∅'],
-            'bool':      ['cType',       '𝔹'],
-            'int':       ['cType',       'ℤ'],
-            'float':     ['cType',       'ℝ'],
-            'double':    ['cType',       '𝔻'],
-            'char':      ['cType',       'ℂ'],
-            'unsigned ': ['cStorageClass', '⁺'],  # TODO: Make this render "unsigned int" as "⁺ℤ", not "⁺ ℤ" like it currently does
-            'return':    ['cStatement',  '↵'],
-            'true':      ['cConstant',   '⊤'],
-            'false':     ['cConstant',   '⊥'],
-            'NULL':      ['cConstant',   'ø']
-        }
+        var keyword_maps = {'void':      ['cType',         '∅'],
+                            'bool':      ['cType',         '𝔹'],
+                            'int':       ['cType',         'ℤ'],
+                            'float':     ['cType',         'ℝ'],
+                            'double':    ['cType',         '𝔻'],
+                            'char':      ['cType',         'ℂ'],
+                            'unsigned ': ['cStorageClass', '⁺'],  # TODO: Make this render "unsigned int" as "⁺ℤ", not "⁺ ℤ" like it currently does
+                            'true':      ['cConstant',     '⊤'],
+                            'false':     ['cConstant',     '⊥'],
+                            'NULL':      ['cConstant',     'ø']}
 
         for [kw, data] in items(keyword_maps)
             execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
         endfor
 
-        var ops = {
-            '==': '≡',
-            '!=': '≠',
-            '<=': '≤',
-            '>=': '≥',
-            '&&': '∧',
-            '||': '∨',
-            '!':  '¬'
-        }
+        var ops = {'==': '≡',
+                   '!=': '≠',
+                   '<=': '≤',
+                   '>=': '≥',
+                   '&&': '∧',
+                   '||': '∨',
+                   '!':  '¬'}
 
         for [pattern, char] in items(ops)
             execute $'syntax match cOperator "{pattern}" conceal cchar={char}'
         endfor
 
-        # 3. Bitwise and Memory Operators
-        # Conceals pointer dereference/declaration and address-of
-        # Note: Be careful with * as it is also multiplication
-        syntax match cOperator "<<" conceal cchar=≪
-        syntax match cOperator ">>" conceal cchar=≫
-        syntax match cOperator "->" conceal cchar=→
-
-        # 4. Special Math/Library Conceals
-        syntax match cSpecial "\v<M_PI>" conceal cchar=π
-        syntax match cSpecial "\v<INFINITY>" conceal cchar=∞
+        syntax match cOperator "<<"           conceal cchar=≪
+        syntax match cOperator ">>"           conceal cchar=≫
+        syntax match cOperator "->"           conceal cchar=→
+        syntax match cSpecial  "\v<M_PI>"     conceal cchar=π
+        syntax match cSpecial  "\v<INFINITY>" conceal cchar=∞
 
         execute 'syntax match cSpecial /\v<sqrt>\(/me=e-1 conceal cchar=√ containedin=ALL'
         execute 'syntax match cSpecial /\v<sum>\(/me=e-1  conceal cchar=∑ containedin=ALL'
@@ -196,7 +186,6 @@ export class CConcealer
 
     def ApplyHighlights()
         hi! link Conceal Operator
-        # Ensure the background doesn't highlight the concealed character
         hi Conceal ctermbg=NONE guibg=NONE
     enddef
 endclass
@@ -207,3 +196,5 @@ export def SetupC()
     c_concealer.ApplySettings()
     c_concealer.SetupSyntax()
 enddef
+
+# autocmd VimResized * if &ft == 'c' | c_concealer.SyncSyntax() | endif  # TODO: Do I need this?
