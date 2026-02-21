@@ -145,8 +145,8 @@ export class CConcealer
     enddef
 
     def SetupSyntax()
-        execute 'syntax match cStorageClass /\v<unsigned>\s?/ conceal cchar=⁺'
-
+        # execute 'syntax match cStorageClass /\v<unsigned>\s?/ conceal cchar=⁺'
+        execute 'syntax match cStorageClass /unsigned / conceal cchar=⁺'
         var keyword_maps = {
             'void':      ['cType',       '∅'],
             'bool':      ['cType',       '𝔹'],
