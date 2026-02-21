@@ -105,13 +105,12 @@ export class PythonConcealer
     enddef
 
     def ApplyHighlights()
-        hi! link pythonLambda Keyword
-        hi! link pythonBuiltin Function
-        hi! link pythonOperator Operator
+        hi Conceal ctermbg=NONE guibg=NONE
+        hi! link pythonLambda Statement
         hi! link pythonListType pythonBuiltin
         hi! link mathNotIn pythonOperator
         hi! link mathIsNot pythonOperator
-        hi! link mathEmptySet Constant
+        hi! link mathEmptySet pythonStatement
     enddef
 
     def SyncSyntax()
