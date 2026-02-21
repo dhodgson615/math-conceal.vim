@@ -23,14 +23,24 @@ export class PythonConcealer
 
     def SetupSyntax()
         # Operators & Constants
-        syntax match mathNotIn    "\<not in\>" conceal cchar=∉
-        syntax match mathIsNot    "\<is not\>" conceal cchar=≢
+
+        syntax keyword pythonOperator and conceal cchar=∧
+        syntax keyword pythonOperator or  conceal cchar=∨
+        syntax keyword pythonOperator not conceal cchar=¬
+        syntax keyword pythonOperator in  conceal cchar=∈
+        syntax keyword pythonOperator is  conceal cchar=≐
+
+        syntax match mathNotIn    "\<not in\>" conceal cchar=∉ priority=10
+        syntax match mathIsNot    "\<is not\>" conceal cchar=≢ priority=10
         syntax match mathEmptySet "{}"         conceal cchar=∅
 
-        var simple_ops = {
-            '->': '→', '==': '≡', '!=': '≠', '<=': '≤',
-            '>=': '≥', '<<': '≪', '>>': '≫'
-        }
+        var simple_ops = {'->': '→',
+                          '==': '≡',
+                          '!=': '≠',
+                          '<=': '≤',
+                          '>=': '≥',
+                          '<<': '≪',
+                          '>>': '≫'}
 
         for [pattern, char] in items(simple_ops)
             execute $'syntax match pythonOperator "{pattern}" conceal cchar={char}'
@@ -59,11 +69,11 @@ export class PythonConcealer
         # Keywords & Logic
         var keyword_maps = {
             'lambda':  ['pythonLambda',  'λ'],
-            'and':     ['pythonOperator', '∧'],
-            'or':      ['pythonOperator', '∨'],
-            'not':     ['pythonOperator', '¬'],
-            'in':      ['pythonOperator', '∈'],
-            'is':      ['pythonOperator', '≐'],
+            # 'and':     ['pythonOperator', '∧'],
+            # 'or':      ['pythonOperator', '∨'],
+            # 'not':     ['pythonOperator', '¬'],
+            # 'in':      ['pythonOperator', '∈'],
+            # 'is':      ['pythonOperator', '≐'],
             'all':     ['pythonBuiltin',  '∀'],
             'any':     ['pythonBuiltin',  '∃'],
             'sum':     ['pythonBuiltin',  'Σ'],
