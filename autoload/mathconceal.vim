@@ -1,7 +1,7 @@
 vim9script
 
 export class PythonConcealer
-    public var conceallevel: number = 2
+    public var conceallevel: number  = 2
     public var concealcursor: string = 'nv'
 
     static var type_map: dict<list<string>> = {
@@ -12,20 +12,20 @@ export class PythonConcealer
     }
 
     def new(level: number = 2, cursor: string = 'nv')
-        this.conceallevel = level
+        this.conceallevel  = level
         this.concealcursor = cursor
     enddef
 
     def ApplySettings()
-        &l:conceallevel = this.conceallevel
+        &l:conceallevel  = this.conceallevel
         &l:concealcursor = this.concealcursor
     enddef
 
     def SetupSyntax()
         # Operators & Constants
-        syntax match mathNotIn "\<not in\>" conceal cchar=∉
-        syntax match mathIsNot "\<is not\>" conceal cchar=≢
-        syntax match mathEmptySet "{}"      conceal cchar=∅
+        syntax match mathNotIn    "\<not in\>" conceal cchar=∉
+        syntax match mathIsNot    "\<is not\>" conceal cchar=≢
+        syntax match mathEmptySet "{}"         conceal cchar=∅
 
         var simple_ops = {
             '->': '→', '==': '≡', '!=': '≠', '<=': '≤',
