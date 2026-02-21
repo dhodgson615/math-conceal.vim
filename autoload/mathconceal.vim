@@ -8,7 +8,7 @@ export def Setup()
     # Basic operators & constants
     syntax match mathNotIn "\<not in\>" conceal cchar=∉
     syntax match mathIsNot "\<is not\>" conceal cchar=≢
-    syntax match mathEmptySet "{}" conceal cchar=∅
+    syntax match mathEmptySet "{}"      conceal cchar=∅
 
     syntax match pythonOperator "->" conceal cchar=→
     syntax match pythonOperator "==" conceal cchar=≡
@@ -29,36 +29,36 @@ export def Setup()
     syntax match pythonOperator "\v\*\* ?7($|[^\d])@=" conceal cchar=⁷
     syntax match pythonOperator "\v\*\* ?8($|[^\d])@=" conceal cchar=⁸
     syntax match pythonOperator "\v\*\* ?9($|[^\d])@=" conceal cchar=⁹
-    syntax match pythonOperator "\*\*" conceal cchar=^
+    syntax match pythonOperator "\*\*"                 conceal cchar=^
 
     # Built-ins & libraries
-    syntax match pythonBuiltin "\v\.T|transpose\(\)@=" conceal cchar=ᵀ
-    syntax match pythonBuiltin "\v<(np\.|numpy\.)?dot>" conceal cchar=⋅
-    syntax match pythonBuiltin "\v<(np\.|numpy\.)?gradient>" conceal cchar=∇
+    syntax match pythonBuiltin "\v\.T|transpose\(\)@="                conceal cchar=ᵀ
+    syntax match pythonBuiltin "\v<(np\.|numpy\.)?dot>"               conceal cchar=⋅
+    syntax match pythonBuiltin "\v<(np\.|numpy\.)?gradient>"          conceal cchar=∇
     syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?prod(uct)?>" conceal cchar=∏
-    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?pi>" conceal cchar=π
-    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?inf>" conceal cchar=∞
-    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?sqrt>" conceal cchar=√
-    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?exp>" conceal cchar=ℯ
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?pi>"         conceal cchar=π
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?inf>"        conceal cchar=∞
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?sqrt>"       conceal cchar=√
+    syntax match pythonBuiltin "\v<(math\.|np\.|numpy\.)?exp>"        conceal cchar=ℯ
 
     # Keywords & logic
     syntax keyword pythonLambda lambda conceal cchar=λ
-    syntax keyword pythonOperator and conceal cchar=∧
-    syntax keyword pythonOperator or conceal cchar=∨
-    syntax keyword pythonOperator not conceal cchar=¬
-    syntax keyword pythonBuiltin all conceal cchar=∀
-    syntax keyword pythonBuiltin any conceal cchar=∃
-    syntax keyword pythonOperator in conceal cchar=∈
-    syntax keyword pythonOperator is conceal cchar=≐
-    syntax keyword pythonBuiltin sum conceal cchar=Σ
+    syntax keyword pythonOperator and  conceal cchar=∧
+    syntax keyword pythonOperator or   conceal cchar=∨
+    syntax keyword pythonOperator not  conceal cchar=¬
+    syntax keyword pythonBuiltin all   conceal cchar=∀
+    syntax keyword pythonBuiltin any   conceal cchar=∃
+    syntax keyword pythonOperator in   conceal cchar=∈
+    syntax keyword pythonOperator is   conceal cchar=≐
+    syntax keyword pythonBuiltin sum   conceal cchar=Σ
     syntax keyword pythonBuiltin round conceal cchar=≈
 
     # Types & set notation
-    syntax keyword pythonBuiltin int conceal cchar=ℤ
-    syntax keyword pythonBuiltin float conceal cchar=ℝ
-    syntax keyword pythonBuiltin bool conceal cchar=𝔹
-    syntax keyword pythonBuiltin complex conceal cchar=ℂ
-    syntax keyword pythonBuiltin set conceal cchar=𝕊
+    syntax keyword pythonBuiltin int       conceal cchar=ℤ
+    syntax keyword pythonBuiltin float     conceal cchar=ℝ
+    syntax keyword pythonBuiltin bool      conceal cchar=𝔹
+    syntax keyword pythonBuiltin complex   conceal cchar=ℂ
+    syntax keyword pythonBuiltin set       conceal cchar=𝕊
     syntax match pythonListType "\<list\[" conceal cchar=[
 
     # int tuples
