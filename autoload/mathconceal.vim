@@ -120,9 +120,89 @@ endclass
 
 var python_concealer = PythonConcealer.new()
 
-export def Setup()
+export def SetupPython()
     python_concealer.ApplySettings()
     python_concealer.SetupSyntax()
 enddef
 
-autocmd VimResized * python_concealer.SyncSyntax()
+autocmd VimResized * if &ft == 'python' | python_concealer.SyncSyntax() | endif
+
+
+
+
+export class CConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {
+            'void':      ['cType',       '∅'],
+            'bool':      ['cType',       '𝔹'],
+            'int':       ['cType',       'ℤ'],
+            'float':     ['cType',       'ℝ'],
+            'double':    ['cType',       '𝔻'],
+            'char':      ['cType',       'ℂ'],
+            'unsigned':  ['cStorageClass','⁺'],
+            'return':    ['cStatement',  '↵'],
+            'true':      ['cConstant',   '⊤'],
+            'false':     ['cConstant',   '⊥'],
+            'NULL':      ['cConstant',   'ø']
+        }
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {
+            '==': '≡',
+            '!=': '≠',
+            '<=': '≤',
+            '>=': '≥',
+            '&&': '∧',
+            '||': '∨',
+            '!':  '¬'
+        }
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match cOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        # 3. Bitwise and Memory Operators
+        # Conceals pointer dereference/declaration and address-of
+        # Note: Be careful with * as it is also multiplication
+        syntax match cOperator "<<" conceal cchar=≪
+        syntax match cOperator ">>" conceal cchar=≫
+        syntax match cOperator "->" conceal cchar=→
+
+        # 4. Special Math/Library Conceals (Standard C/Math.h)
+        syntax match cSpecial "\v<M_PI>"       conceal cchar=π
+        syntax match cSpecial "\v<INFINITY>"   conceal cchar=∞
+        syntax match cSpecial "\v<sqrt>\("     me=e-1 conceal cchar=√
+        syntax match cSpecial "\v<sum>\("      me=e-1 conceal cchar=∑
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi! link Conceal Operator
+        # Ensure the background doesn't highlight the concealed character
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var c_concealer = CConcealer.new()
+
+export def SetupC()
+    c_concealer.ApplySettings()
+    c_concealer.SetupSyntax()
+enddef
