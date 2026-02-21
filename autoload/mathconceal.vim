@@ -145,8 +145,6 @@ export class CConcealer
     enddef
 
     def SetupSyntax()
-        # execute 'syntax match cStorageClass /\v<unsigned>\s?/ conceal cchar=⁺'
-        execute 'syntax match cStorageClass /unsigned / conceal cchar=⁺'
         var keyword_maps = {
             'void':      ['cType',       '∅'],
             'bool':      ['cType',       '𝔹'],
@@ -154,6 +152,7 @@ export class CConcealer
             'float':     ['cType',       'ℝ'],
             'double':    ['cType',       '𝔻'],
             'char':      ['cType',       'ℂ'],
+            'unsigned ': ['cStorageClass', '⁺'],  # TODO: Make this render "unsigned int" as "⁺ℤ", not "⁺ ℤ" like it currently does
             'return':    ['cStatement',  '↵'],
             'true':      ['cConstant',   '⊤'],
             'false':     ['cConstant',   '⊥'],
