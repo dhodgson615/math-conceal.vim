@@ -37,7 +37,7 @@ export class PythonConcealer
             'int':    ['pythonBuiltin',  'ℤ'],
             'float':  ['pythonBuiltin',  'ℝ'],
             'bool':   ['pythonBuiltin',  '𝔹'],
-            'complex':['pythonBuiltin',  'ℂ'],
+            'complex': ['pythonBuiltin',  'ℂ'],
             'set':    ['pythonBuiltin',  '𝕊']
         }
         for [kw, data] in items(keyword_maps)
