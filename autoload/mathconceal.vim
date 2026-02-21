@@ -1,6 +1,7 @@
 vim9script
 
 export def Setup()
+
     setlocal conceallevel=2
     setlocal concealcursor=nv
 
@@ -267,4 +268,9 @@ export def Setup()
     hi! link mathIsNot Operator
     hi! link mathEmptySet Constant
 
+    var dynamic_minlines = winheight(0) * 2
+    execute 'syntax sync minlines=' .. dynamic_minlines
+
 enddef
+
+autocmd VimResized * Setup()
