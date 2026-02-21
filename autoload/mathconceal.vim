@@ -184,11 +184,12 @@ export class CConcealer
         syntax match cOperator ">>" conceal cchar=≫
         syntax match cOperator "->" conceal cchar=→
 
-        # 4. Special Math/Library Conceals (Standard C/Math.h)
-        syntax match cSpecial "\v<M_PI>"       conceal cchar=π
-        syntax match cSpecial "\v<INFINITY>"   conceal cchar=∞
-        syntax match cSpecial "\v<sqrt>\("     me=e-1 conceal cchar=√
-        syntax match cSpecial "\v<sum>\("      me=e-1 conceal cchar=∑
+        # 4. Special Math/Library Conceals
+        syntax match cSpecial "\v<M_PI>" conceal cchar=π
+        syntax match cSpecial "\v<INFINITY>" conceal cchar=∞
+
+        execute 'syntax match cSpecial "\v<sqrt>\(" conceal cchar=√ me=e-1'
+        execute 'syntax match cSpecial "\v<sum>\(" conceal cchar=∑ me=e-1'
 
         this.ApplyHighlights()
     enddef
