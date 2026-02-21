@@ -152,7 +152,7 @@ export class CConcealer
             'float':     ['cType',       'ℝ'],
             'double':    ['cType',       '𝔻'],
             'char':      ['cType',       'ℂ'],
-            'unsigned':  ['cStorageClass','⁺'],
+            'unsigned':  ['cStorageClass', '⁺'],
             'return':    ['cStatement',  '↵'],
             'true':      ['cConstant',   '⊤'],
             'false':     ['cConstant',   '⊥'],
