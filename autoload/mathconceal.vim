@@ -3,7 +3,7 @@ vim9script
 export class PythonConcealer
     public var conceallevel: number = 2
     public var concealcursor: string = 'nv'
-    
+
     static var type_map: dict<list<string>> = {
         'int':     ['Int',     'ℤ'],
         'float':   ['Float',   'ℝ'],
@@ -28,7 +28,7 @@ export class PythonConcealer
         syntax match mathEmptySet "{}"      conceal cchar=∅
 
         var simple_ops = {
-            '->': '→', '==': '≡', '!=': '≠', '<=': '≤', 
+            '->': '→', '==': '≡', '!=': '≠', '<=': '≤',
             '>=': '≥', '<<': '≪', '>>': '≫'
         }
 
@@ -89,10 +89,10 @@ export class PythonConcealer
         for i in range(2, 9)
             execute $'syntax match mathTupExp{i} "\]" contained conceal cchar={superscripts[i]}'
             execute $'hi! link mathTupExp{i} pythonBuiltin'
-            
+
             for [type_kw, type_data] in items(type_map)
                 var camel_name = type_data[0]
-                var symbol = type_data[1]                
+                var symbol = type_data[1]
                 var base_pattern = $'\vtuple\[{type_kw}' .. repeat($',\s*{type_kw}', i - 1)
                 var group_name = $'mathTup{camel_name}{i}'
                 var base_group = $'mathTupBase{camel_name}{i}'
