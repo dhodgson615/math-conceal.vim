@@ -24,21 +24,21 @@ export class PythonConcealer
     def SetupSyntax()
         # We use matches instead of keywords so that 'not in' can override 'not'
         var single_word_matches = {
-            'lambda': ['pythonLambda',   'λ'],
-            'and':    ['pythonOperator', '∧'],
-            'or':     ['pythonOperator', '∨'],
-            'not':    ['pythonOperator', '¬'],
-            'in':     ['pythonOperator', '∈'],
-            'is':     ['pythonOperator', '≐'],
-            'all':    ['pythonBuiltin',  '∀'],
-            'any':    ['pythonBuiltin',  '∃'],
-            'sum':    ['pythonBuiltin',  'Σ'],
-            'round':  ['pythonBuiltin',  '≈'],
-            'int':    ['pythonBuiltin',  'ℤ'],
-            'float':  ['pythonBuiltin',  'ℝ'],
-            'bool':   ['pythonBuiltin',  '𝔹'],
-            'complex':['pythonBuiltin',  'ℂ'],
-            'set':    ['pythonBuiltin',  '𝕊']
+            'lambda':  ['pythonLambda',   'λ'],
+            'and':     ['pythonOperator', '∧'],
+            'or':      ['pythonOperator', '∨'],
+            'not':     ['pythonOperator', '¬'],
+            'in':      ['pythonOperator', '∈'],
+            'is':      ['pythonOperator', '≐'],
+            'all':     ['pythonBuiltin',  '∀'],
+            'any':     ['pythonBuiltin',  '∃'],
+            'sum':     ['pythonBuiltin',  'Σ'],
+            'round':   ['pythonBuiltin',  '≈'],
+            'int':     ['pythonBuiltin',  'ℤ'],
+            'float':   ['pythonBuiltin',  'ℝ'],
+            'bool':    ['pythonBuiltin',  '𝔹'],
+            'complex': ['pythonBuiltin',  'ℂ'],
+            'set':     ['pythonBuiltin',  '𝕊']
         }
         for [kw, data] in items(single_word_matches)
             execute $'syntax match {data[0]} "\<{kw}\>" conceal cchar={data[1]}'
