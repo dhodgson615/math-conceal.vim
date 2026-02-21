@@ -188,8 +188,8 @@ export class CConcealer
         syntax match cSpecial "\v<M_PI>" conceal cchar=π
         syntax match cSpecial "\v<INFINITY>" conceal cchar=∞
 
-        execute 'syntax match cSpecial "\v<sqrt>\(" conceal cchar=√ me=e-1'
-        execute 'syntax match cSpecial "\v<sum>\(" conceal cchar=∑ me=e-1'
+        execute 'syntax match cSpecial /\v<sqrt>\(/me=e-1 conceal cchar=√ containedin=ALL'
+        execute 'syntax match cSpecial /\v<sum>\(/me=e-1  conceal cchar=∑ containedin=ALL'
 
         this.ApplyHighlights()
     enddef
