@@ -118,7 +118,7 @@ export class PythonConcealer
 
     def SyncSyntax()
         # Dynamically sync syntax highlighting lines to optimize editor performance
-        var dynamic_minlines = winheight(0) * 2
+        var dynamic_minlines: number = winheight(0) * 2
         execute $'syntax sync minlines={dynamic_minlines}'
     enddef
 endclass
