@@ -37,7 +37,8 @@ export class PythonConcealer
         endfor
 
         # Power & Superscripts (0-9 and fallback ^)
-        var superscripts = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
+        var superscripts = ['⁰', '¹', '²', '³', '⁴',
+                            '⁵', '⁶', '⁷', '⁸', '⁹']
 
         for i in range(10)
             execute $'syntax match pythonOperator "\v\*\* ?{i}($|[^\d])@=" conceal cchar={superscripts[i]}'
