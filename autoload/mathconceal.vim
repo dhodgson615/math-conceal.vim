@@ -59,6 +59,7 @@ export def Setup()
     syntax keyword pythonBuiltin bool conceal cchar=𝔹
     syntax keyword pythonBuiltin complex conceal cchar=ℂ
     syntax keyword pythonBuiltin set conceal cchar=𝕊
+    syntax match pythonListType "\<list\[" conceal cchar=[
 
     # int tuples
     syntax match mathTupInt2 "\vtuple\[int,\s*int\]" contains=mathTupBaseInt2,mathTupExp2
@@ -168,6 +169,7 @@ export def Setup()
     hi! link pythonLambda Keyword
     hi! link pythonBuiltin Function
     hi! link pythonOperator Operator
+    hi! link pythonListType pythonBuiltin
     hi! link mathNotIn Operator
     hi! link mathIsNot Operator
     hi! link mathEmptySet Constant
