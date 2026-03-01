@@ -140,7 +140,6 @@ local function setup_c()
         'syntax match cSpecial "\\v<INFINITY>" conceal cchar=∞',
         'syntax match cSpecial /\\v<sqrt>\\(/me=e-1 conceal cchar=√ containedin=ALL',
         'syntax match cSpecial /\\v<sum>\\(/me=e-1  conceal cchar=∑ containedin=ALL',
-        'hi! link Conceal Operator',
         'hi Conceal ctermbg=NONE guibg=NONE',
     })
 end
