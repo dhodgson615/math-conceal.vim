@@ -255,7 +255,6 @@ export class CppConcealer
     enddef
 
     def ApplyHighlights()
-        hi! link Conceal Operator
         hi Conceal ctermbg=NONE guibg=NONE
     enddef
 endclass
