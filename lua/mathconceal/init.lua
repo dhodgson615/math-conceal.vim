@@ -173,7 +173,6 @@ local function setup_cpp()
         'syntax match cSpecial "\\v<M_PI>"     conceal cchar=π',
         'syntax match cSpecial "\\v<INFINITY>" conceal cchar=∞',
         'syntax match cSpecial /\\v<sqrt>\\(/me=e-1 conceal cchar=√ containedin=ALL',
-        'hi! link Conceal Operator',
         'hi Conceal ctermbg=NONE guibg=NONE',
     })
 end
