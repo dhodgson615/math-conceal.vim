@@ -199,3 +199,435 @@ export def SetupC()
 enddef
 
 # autocmd VimResized * if &ft == 'c' | c_concealer.SyncSyntax() | endif  # TODO: Do I need this?
+
+export class CppConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'void':    ['cType',      '∅'],
+                            'bool':    ['cType',      '𝔹'],
+                            'int':     ['cType',      'ℤ'],
+                            'float':   ['cType',      'ℝ'],
+                            'double':  ['cType',      '𝔻'],
+                            'char':    ['cType',      'ℂ'],
+                            'true':    ['cConstant',  '⊤'],
+                            'false':   ['cConstant',  '⊥'],
+                            'nullptr': ['cConstant',  'ø'],
+                            'NULL':    ['cConstant',  'ø']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'==': '≡',
+                   '!=': '≠',
+                   '<=': '≤',
+                   '>=': '≥',
+                   '&&': '∧',
+                   '||': '∨',
+                   '!':  '¬'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match cOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        syntax match cOperator "<<"           conceal cchar=≪
+        syntax match cOperator ">>"           conceal cchar=≫
+        syntax match cOperator "->"           conceal cchar=→
+        syntax match cOperator "::"           conceal cchar=∷
+        syntax match cSpecial  "\v<M_PI>"     conceal cchar=π
+        syntax match cSpecial  "\v<INFINITY>" conceal cchar=∞
+
+        execute 'syntax match cSpecial /\v<sqrt>\(/me=e-1 conceal cchar=√ containedin=ALL'
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var cpp_concealer = CppConcealer.new()
+
+export def SetupCpp()
+    cpp_concealer.ApplySettings()
+    cpp_concealer.SetupSyntax()
+enddef
+
+export class HaskellConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'Int':      ['hsType',    'ℤ'],
+                            'Integer':  ['hsType',    'ℤ'],
+                            'Float':    ['hsType',    'ℝ'],
+                            'Double':   ['hsType',    '𝔻'],
+                            'Char':     ['hsType',    'ℂ'],
+                            'Bool':     ['hsType',    '𝔹'],
+                            'String':   ['hsType',    '𝕊'],
+                            'True':     ['hsType',    '⊤'],
+                            'False':    ['hsType',    '⊥'],
+                            'Nothing':  ['hsType',    '∅'],
+                            'not':      ['hsKeyword', '¬'],
+                            'elem':     ['hsKeyword', '∈'],
+                            'notElem':  ['hsKeyword', '∉'],
+                            'forall':   ['hsKeyword', '∀'],
+                            'sum':      ['hsKeyword', 'Σ'],
+                            'product':  ['hsKeyword', '∏'],
+                            'sqrt':     ['hsKeyword', '√'],
+                            'pi':       ['hsKeyword', 'π']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'->': '→',
+                   '=>': '⇒',
+                   '<-': '←',
+                   '::': '∷',
+                   '==': '≡',
+                   '/=': '≠',
+                   '<=': '≤',
+                   '>=': '≥',
+                   '&&': '∧',
+                   '||': '∨'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match hsOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+        hi! link hsKeyword Statement
+    enddef
+endclass
+
+var haskell_concealer = HaskellConcealer.new()
+
+export def SetupHaskell()
+    haskell_concealer.ApplySettings()
+    haskell_concealer.SetupSyntax()
+enddef
+
+export class LuaConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'nil':      ['luaConstant',  '∅'],
+                            'true':     ['luaConstant',  '⊤'],
+                            'false':    ['luaConstant',  '⊥'],
+                            'and':      ['luaOperator',  '∧'],
+                            'or':       ['luaOperator',  '∨'],
+                            'not':      ['luaOperator',  '¬'],
+                            'function': ['luaStatement', 'ƒ']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'==': '≡',
+                   '~=': '≠',
+                   '<=': '≤',
+                   '>=': '≥'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match luaOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        syntax match luaOperator "\v<math\.pi>"                   conceal cchar=π
+        syntax match luaOperator "\v<math\.huge>"                 conceal cchar=∞
+        execute 'syntax match luaOperator /\v<math\.sqrt>\(/me=e-1 conceal cchar=√ containedin=ALL'
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var lua_concealer = LuaConcealer.new()
+
+export def SetupLua()
+    lua_concealer.ApplySettings()
+    lua_concealer.SetupSyntax()
+enddef
+
+export class GoConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'nil':        ['goDeclaration', '∅'],
+                            'true':       ['goDeclaration', '⊤'],
+                            'false':      ['goDeclaration', '⊥'],
+                            'int':        ['goType',        'ℤ'],
+                            'int8':       ['goType',        'ℤ'],
+                            'int16':      ['goType',        'ℤ'],
+                            'int32':      ['goType',        'ℤ'],
+                            'int64':      ['goType',        'ℤ'],
+                            'float32':    ['goType',        'ℝ'],
+                            'float64':    ['goType',        'ℝ'],
+                            'bool':       ['goType',        '𝔹'],
+                            'string':     ['goType',        '𝕊'],
+                            'complex128': ['goType',        'ℂ']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'<-': '←',
+                   '==': '≡',
+                   '!=': '≠',
+                   '<=': '≤',
+                   '>=': '≥',
+                   '&&': '∧',
+                   '||': '∨',
+                   '!':  '¬'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match goOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        syntax match goOperator "\v<math\.Pi>"                    conceal cchar=π
+        syntax match goOperator "\v<math\.Inf>"                   conceal cchar=∞
+        execute 'syntax match goOperator /\v<math\.Sqrt>\(/me=e-1 conceal cchar=√ containedin=ALL'
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var go_concealer = GoConcealer.new()
+
+export def SetupGo()
+    go_concealer.ApplySettings()
+    go_concealer.SetupSyntax()
+enddef
+
+export class JavaConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'void':       ['javaType',      '∅'],
+                            'boolean':    ['javaType',      '𝔹'],
+                            'int':        ['javaType',      'ℤ'],
+                            'float':      ['javaType',      'ℝ'],
+                            'double':     ['javaType',      '𝔻'],
+                            'char':       ['javaType',      'ℂ'],
+                            'true':       ['javaBoolean',   '⊤'],
+                            'false':      ['javaBoolean',   '⊥'],
+                            'null':       ['javaConstant',  'ø'],
+                            'instanceof': ['javaOperator',  '∈']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'==': '≡',
+                   '!=': '≠',
+                   '<=': '≤',
+                   '>=': '≥',
+                   '&&': '∧',
+                   '||': '∨',
+                   '!':  '¬',
+                   '->': '→'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match javaOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var java_concealer = JavaConcealer.new()
+
+export def SetupJava()
+    java_concealer.ApplySettings()
+    java_concealer.SetupSyntax()
+enddef
+
+export class RustConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'bool':  ['rustType',    '𝔹'],
+                            'i32':   ['rustType',    'ℤ'],
+                            'i64':   ['rustType',    'ℤ'],
+                            'f32':   ['rustType',    'ℝ'],
+                            'f64':   ['rustType',    'ℝ'],
+                            'char':  ['rustType',    'ℂ'],
+                            'str':   ['rustType',    '𝕊'],
+                            'true':  ['rustBoolean', '⊤'],
+                            'false': ['rustBoolean', '⊥'],
+                            'None':  ['rustEnum',    '∅']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'->': '→',
+                   '=>': '⇒',
+                   '::': '∷',
+                   '==': '≡',
+                   '!=': '≠',
+                   '<=': '≤',
+                   '>=': '≥',
+                   '&&': '∧',
+                   '||': '∨',
+                   '!':  '¬',
+                   '<<': '≪',
+                   '>>': '≫'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match rustOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var rust_concealer = RustConcealer.new()
+
+export def SetupRust()
+    rust_concealer.ApplySettings()
+    rust_concealer.SetupSyntax()
+enddef
+
+export class SqlConcealer
+    public var conceallevel: number = 2
+    public var concealcursor: string = 'nv'
+
+    def new(level: number = 2, cursor: string = 'nv')
+        this.conceallevel  = level
+        this.concealcursor = cursor
+    enddef
+
+    def ApplySettings()
+        &l:conceallevel  = this.conceallevel
+        &l:concealcursor = this.concealcursor
+    enddef
+
+    def SetupSyntax()
+        var keyword_maps = {'NULL':      ['sqlSpecial',   'ø'],
+                            'NOT':       ['sqlOperator',  '¬'],
+                            'AND':       ['sqlOperator',  '∧'],
+                            'OR':        ['sqlOperator',  '∨'],
+                            'IN':        ['sqlOperator',  '∈'],
+                            'LIKE':      ['sqlOperator',  '≈'],
+                            'UNION':     ['sqlOperator',  '∪'],
+                            'INTERSECT': ['sqlOperator',  '∩'],
+                            'EXCEPT':    ['sqlOperator',  '∖'],
+                            'SUM':       ['sqlFunction',  'Σ'],
+                            'AVG':       ['sqlFunction',  'μ'],
+                            'MIN':       ['sqlFunction',  '⌊'],
+                            'MAX':       ['sqlFunction',  '⌈']}
+
+        for [kw, data] in items(keyword_maps)
+            execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
+        endfor
+
+        var ops = {'<>': '≠',
+                   '!=': '≠',
+                   '<=': '≤',
+                   '>=': '≥'}
+
+        for [pattern, char] in items(ops)
+            execute $'syntax match sqlOperator "{pattern}" conceal cchar={char}'
+        endfor
+
+        this.ApplyHighlights()
+    enddef
+
+    def ApplyHighlights()
+        hi Conceal ctermbg=NONE guibg=NONE
+    enddef
+endclass
+
+var sql_concealer = SqlConcealer.new()
+
+export def SetupSql()
+    sql_concealer.ApplySettings()
+    sql_concealer.SetupSyntax()
+enddef
