@@ -225,7 +225,7 @@ local function setup_lua()
         'syntax keyword luaOperator  not      conceal cchar=¬',
         'syntax keyword luaStatement function conceal cchar=ƒ',
         'syntax match luaOperator "==" conceal cchar=≡',
-        'syntax match luaOperator "~=" conceal cchar=≠',
+        'syntax match luaOperator "\\~=" conceal cchar=≠',
         'syntax match luaOperator "<=" conceal cchar=≤',
         'syntax match luaOperator ">=" conceal cchar=≥',
         'syntax match luaOperator "\\v<math\\.pi>"   conceal cchar=π',
