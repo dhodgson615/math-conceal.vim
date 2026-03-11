@@ -362,10 +362,10 @@ export class LuaConcealer
             execute $'syntax keyword {data[0]} {kw} conceal cchar={data[1]}'
         endfor
 
-        var ops = {'==': '≡',
-                   '~=': '≠',
-                   '<=': '≤',
-                   '>=': '≥'}
+        var ops = {'==':  '≡',
+                   '\~=': '≠',
+                   '<=':  '≤',
+                   '>=':  '≥'}
 
         for [pattern, char] in items(ops)
             execute $'syntax match luaOperator "{pattern}" conceal cchar={char}'
